@@ -1,37 +1,16 @@
 <?php
 
 /*
- * Your comment header here
- */
+ /*
+ * File Name: process.php
+ * Author: Semir Trkaljach
+ * Created on: 2025-01-23
+ * Description: This script processes form data submitted via POST and displays the information entered by the user.
+ 
 
-/* 
- * This is a simple demo to demonstrate how you can access and process
- * information posted to the server. Alter this file according to the
- * instructions in the assignment. Note that you will NOT normally
- * do things this way, but this will serve as an introduction
- * to server side processing and then we will fix it in subsequent
- * assignments.
- *
- * The output of this page MUST be a complete and properly structured
- * mobile-friendly, mobile-first, responsive webpage. To do that you
- * will purposefully violate both division of concerns and some procedural
- * programming best practices so as to create a simple and easy to
- * understand solution. We will then use this example as a guide
- * for how to do things properly in subsequent assignments.
  */
+ 
 
-// DELETE *ALL* INSTRUCTIONAL COMMENTS AND CODE WHEN YOU ARE READY TO SUBMIT
-// *EXCEPT* FOR THE COMMENTS THAT SAY, "Do not delete this comment."
-// LEAVE THOSE IN PLACE TO SHOW IN *YOUR* CODE WHERE YOU DID EACH STEP.
-// YOU MAY BREAK UP STEP 3 AND 4 IF YOUR SOLUTION REQUIRES IT, BUT
-// MAINTAIN THE ORDER of.. step 3: PROCESSING, step 4: OUTPUT
-
-/*
- * This next line is simply to demonstrate the use of the var_dump()
- * and to show the contents of the system global variable $_POST.
- * Do not leave this in your final code. This is an
- * example of a debug statement.
- */
 var_dump($_POST);
 
 /* * *********************************************
@@ -39,15 +18,11 @@ var_dump($_POST);
  * Do not delete this comment,
  * ********************************************** */
 
-if (!empty($_POST['text1']) && !empty($_POST['text2'])) {
-    // extract the data from the global $_POST (if it exists) into local variables.
-    // NEVER work with $_POST directly, get away from it as fast as possible.
-    $text1 = $_POST['text1'];
-    $text2 = $_POST['text2'];
-} else {
-    $text1 = "";
-    $text2 = "";
-}
+$title = isset($_POST['title']) ? $_POST['title'] : "";
+$favoriteDrink = isset($_POST['favorite_drink']) ? $_POST['favorite_drink'] : "";
+$petsName = isset($_POST['pets_name']) ? $_POST['pets_name'] : "";
+$fictionalPlace = isset($_POST['fictional_place']) ? $_POST['fictional_place'] : "";
+$realPlace = isset($_POST['real_place']) ? $_POST['real_place'] : "";
 
 /* * ******************************************************
  * STEP 2: VALIDATION: Always clean your input first!!!!
@@ -55,39 +30,52 @@ if (!empty($_POST['text1']) && !empty($_POST['text2'])) {
  * Do not delete this comment.
  * ****************************************************** */
 
-// clean up the variables (a little) by removing leading and trailing white space
-// follow the instructions in the assignment for further cleaning steps
-$text1 = trim($text1);
-$text2 = trim($text2);
 
+$title = substr(strip_tags(trim($title)), 0, 64);
+$favoriteDrink = substr(strip_tags(trim($favoriteDrink)), 0, 64);
+$petsName = substr(strip_tags(trim($petsName)), 0, 64);
+$fictionalPlace = substr(strip_tags(trim($fictionalPlace)), 0, 64);
+$realPlace = substr(strip_tags(trim($realPlace)), 0, 64);
 
-if (!empty($text1) && !empty($text2)) {
+/* * *********************************************
+ * STEP 3 and 4: PROCESSING and OUTPUT: Notice this code only executes
+ * if you have valid data from steps 1 and 2. Your code must always have
+ * a safety feature similar to this.
+ * Do not delete this comment.
+ * ********************************************** */
 
-    /*     * *************************************************************************
-     * STEP 3 and 4: PROCESSING and OUTPUT: Notice this code only executes
-     * if you have valid data from steps 1 and 2. Your code must always have
-     * a saftey feature similar to this.
-     * Do not delete this comment.
-     * ************************************************************************ */
+if (!empty($title) && !empty($favoriteDrink) && !empty($petsName) && !empty($fictionalPlace) && !empty($realPlace)) {
 
-    // the following code shows how you can access parts of the $_POST array
-    echo "you entered: \"" . $text1 . "\" for text box 1<br>";
-    $length = strlen($text1);
+     
+    $fullTitle = $title . " " . $favoriteDrink . " " . $petsName . " " . $fictionalPlace . " " . $realPlace;
 
-    if ($length > 0) {
-        echo "the length of your first input is: " . $length . "<br>";
+    
+    echo "You are: " . htmlspecialchars($fullTitle) . "<br>";
+
+    
+    echo htmlspecialchars($title) . " is " . strlen($title) . " characters, ";
+    echo htmlspecialchars($favoriteDrink) . " is " . strlen($favoriteDrink) . " characters, ";
+    echo htmlspecialchars($petsName) . " is " . strlen($petsName) . " characters, ";
+    echo htmlspecialchars($fictionalPlace) . " is " . strlen($fictionalPlace) . " characters, ";
+    echo htmlspecialchars($realPlace) . " is " . strlen($realPlace) . " characters.<br>";
+
+    
+    $totalLength = strlen($fullTitle);
+    echo "Your whole title is " . $totalLength . " characters.<br>";
+
+   
+    if ($totalLength >= 30) {
+        echo "That's a heck of a title!<br>";
+    } else {
+        echo "That's a cute little title.<br>";
     }
-    echo "<br>";
 
-    echo "you entered: \"" . $text2 . "\" for text box 1<br>";
-    $length = strlen($text2);
+    
+    echo '<a href="index.html">Try again</a><br>';
 
-    if ($length > 0) {
-        echo "the length of your second input is: " . $length . "<br>";
-    }
-    echo "<br>";
-    echo '<a href="index.html">try again</a><br>';
 } else {
-    echo "you did not enter anything one or both text boxes.<br>";
-    echo '<a href="index.html">try again</a><br>';
+    
+    echo "I'm sorry, your input was not valid. Please make sure all fields are filled out.<br>";
+    echo '<a href="index.html">Try again</a><br>';
 }
+?>
