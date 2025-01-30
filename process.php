@@ -9,9 +9,9 @@
  
 
  */
- 
-
-var_dump($_POST);
+if (getenv('APP_ENV') === 'development') {
+    var_dump($_POST);
+}
 
 /* * *********************************************
  * STEP 1: INPUT: Do NOT process, just get the data.
@@ -43,6 +43,11 @@ $realPlace = substr(strip_tags(trim($realPlace)), 0, 64);
  * a safety feature similar to this.
  * Do not delete this comment.
  * ********************************************** */
+echo '<?php echo "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Generated Title</title><link rel=\"stylesheet\" href=\"main.css\"></head><body>"; ?>';
+
+echo '<div class="container">';
+echo '<header><h1>Your Generated Title</h1></header>';
+echo '<main>';
 
 if (!empty($title) && !empty($favoriteDrink) && !empty($petsName) && !empty($fictionalPlace) && !empty($realPlace)) {
 
@@ -50,32 +55,28 @@ if (!empty($title) && !empty($favoriteDrink) && !empty($petsName) && !empty($fic
     $fullTitle = $title . " " . $favoriteDrink . " " . $petsName . " " . $fictionalPlace . " " . $realPlace;
 
     
-    echo "You are: " . htmlspecialchars($fullTitle) . "<br>";
+    echo "<h1>You are: " . htmlspecialchars($fullTitle) . "</h1><br>";
 
-    
-    echo htmlspecialchars($title) . " is " . strlen($title) . " characters, ";
-    echo htmlspecialchars($favoriteDrink) . " is " . strlen($favoriteDrink) . " characters, ";
-    echo htmlspecialchars($petsName) . " is " . strlen($petsName) . " characters, ";
-    echo htmlspecialchars($fictionalPlace) . " is " . strlen($fictionalPlace) . " characters, ";
-    echo htmlspecialchars($realPlace) . " is " . strlen($realPlace) . " characters.<br>";
-
+    echo "<h2>" . htmlspecialchars($title) . " is " . strlen($title) . " characters</h2>, ";
+    echo "<h2>" . htmlspecialchars($favoriteDrink) . " is " . strlen($favoriteDrink) . " characters</h2>, ";
+    echo "<h2>" . htmlspecialchars($petsName) . " is " . strlen($petsName) . " characters</h2>, ";
+    echo "<h2>" . htmlspecialchars($fictionalPlace) . " is " . strlen($fictionalPlace) . " characters</h2>, ";
+    echo "<h2>" . htmlspecialchars($realPlace) . " is " . strlen($realPlace) . " characters</h2><br>";
     
     $totalLength = strlen($fullTitle);
-    echo "Your whole title is " . $totalLength . " characters.<br>";
-
-   
-    if ($totalLength >= 30) {
-        echo "That's a heck of a title!<br>";
-    } else {
-        echo "That's a cute little title.<br>";
-    }
-
+    echo "<h2>Your whole title is " . $totalLength . " characters</h2><br>";
     
-    echo '<a href="index.html">Try again</a><br>';
+    if ($totalLength >= 30) {
+        echo "<h2>That's a heck of a title!</h2><br>";
+    } else {
+        echo "<h2>That's a cute little title.</h2><br>";
+    }
+    
+    echo '<h1><a href="index.html">Try again</a></h1><br>';
 
 } else {
     
-    echo "I'm sorry, your input was not valid. Please make sure all fields are filled out.<br>";
+    echo "<h2>I'm sorry, your input was not valid. Please make sure all fields are filled out.</h2><br>";
     echo '<a href="index.html">Try again</a><br>';
 }
-?>
+
