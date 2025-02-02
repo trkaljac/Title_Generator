@@ -7,9 +7,7 @@
  * Description: This script processes form data submitted via POST and displays the information entered by the user.
  */
 
-if (getenv('APP_ENV') === 'development') {
-    var_dump($_POST);
-}
+
 
 /* * *********************************************
  * STEP 1: INPUT: Do NOT process, just get the data.
